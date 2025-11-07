@@ -3,7 +3,7 @@ package personnages;
 public class Humain {
 	private String nom;
 	private String boissonPref;
-	protected int argent;
+	private int argent;
 
 	public Humain(String nom, String boissonPref, int argent) {
 		super();
@@ -36,11 +36,11 @@ public class Humain {
 		parler("Mmmm, un bon verre de " + boissonPref + "! GLOUPS!");
 	}
 
-	private void gagnerArgent(int gain) {
+	protected void gagnerArgent(int gain) {
 		this.argent += gain;
 	}
 
-	private void perdreArgent(int perte) {
+	protected void perdreArgent(int perte) {
 		this.argent -= perte;
 	}
 

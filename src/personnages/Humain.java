@@ -4,6 +4,9 @@ public class Humain {
 	private String nom;
 	private String boissonPref;
 	private int argent;
+	protected int nbConnaissance = 0;
+	private static final int MAX = 30;
+	protected Humain[] memoire = new Humain[MAX];
 
 	public Humain(String nom, String boissonPref, int argent) {
 		super();
@@ -52,4 +55,40 @@ public class Humain {
 			parler("Je n'ai plus que " + argent + " sous en poche. Je ne peux même pas m'offrir un " + bien + " à " + prix + " sous");
 		}
 	}
+	
+	public void faireConnaissanceAvec(Humain humain) {
+		direBonjour();
+		humain.repondre(this);
+		memoriser(humain);
+	}
+	
+	private void memoriser(Humain humain) {
+		if (nbConnaissance < MAX) {
+			memoire[nbConnaissance] = humain;
+			nbConnaissance++;
+		} else if (nbConnaissance == MAX){
+			for (int i = 0; i<nbConnaissance-1; i++) {
+				memoire[i] = memoire[i+1];
+			}
+			memoire[nbConnaissance-1] = humain;
+		}
+	}
+	
+	private void repondre(Humain humain) {
+		direBonjour();
+		memoriser(humain);
+	}
+	
+	public void listerConnaissance() {
+		String noms = "";
+		for (int i = 0; i < nbConnaissance; i++) {
+			noms += memoire[i].getNom();
+			if (i < nbConnaissance-1) {
+				noms += ", ";
+			}
+		}
+		parler("Je connais beaucoup de monde dont: " + noms);
+	}
+
 }
+
